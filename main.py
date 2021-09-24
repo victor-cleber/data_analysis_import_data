@@ -1,6 +1,48 @@
+from mysql.connector import MySQLConnection, Error
+from datetime import date
+import sys
+import csv
+import os
+
+
+def get_database_details():
+    print("Import files")
+    print("Inform the database IP: ")
+    database_ip = input()
+    print("Inform the database Name: ")
+    database_name = input()
+    print("Inform the database user: ")
+    database_user = input()
+    print("Inform the database password: ")
+    database_password = input()
+    return database_ip, database_name, database_user, database_password
+
 
 def import_files():
-    print("Import files")
+    # establishing  the connection
+    db_details = get_database_details
+    conn = MySQLConnection(
+        user='vcleber',
+        password='795641',
+        host='192.168.1.83',
+        database="casestudy1"
+    )
+
+    # creating a cursor object using the cursor() method
+    cursor = conn.cursor()
+
+
+def get_csv_files():
+    csv_files = None
+    print("Inform where the files (.csv) are: ")
+    path = input()
+    dir_list = os.listdir(path)
+    for x in dir_list:
+        if x.endswith(".csv"):
+            print(x)
+            csv_files = path + "\\" + x
+    print(csv_files)
+    return csv_files
 
 
 def show_logs():
@@ -33,6 +75,8 @@ def main_menu():
             opt = int(option)
             if opt == 1:
                 import_files()
+                #variavel = get_database_details()
+                # print(type(variavel))
             elif opt == 2:
                 show_logs()
             elif opt == 3:
